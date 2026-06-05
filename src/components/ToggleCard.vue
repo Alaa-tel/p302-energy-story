@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import type { SavingsAction } from '@/data/energyData'
 
 const props = defineProps<{
@@ -26,19 +26,15 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  toggle: [isActive: boolean]
+  toggle: [habitId: string, isActive: boolean]
 }>()
 
 const isActive = ref(false)
 
 const toggleActive = () => {
   isActive.value = !isActive.value
-  emit('toggle', isActive.value)
+  emit('toggle', props.action.id, isActive.value)
 }
-
-watch(isActive, (newValue) => {
-  emit('toggle', newValue)
-})
 </script>
 
 <style scoped>

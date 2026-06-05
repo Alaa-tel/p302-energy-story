@@ -12,7 +12,7 @@
             v-for="action in savingsActions"
             :key="action.id"
             :action="action"
-            @toggle="updateTotal"
+            @toggle="handleToggle"
           />
         </div>
 
@@ -76,7 +76,7 @@ const selectedHabits = ref<Set<string>>(new Set())
 
 const totalSavings = computed(() => {
   let total = 0
-  selectedHabits.value.forEach(habitId => {
+  selectedHabits.value.forEach((habitId: string) => {
     const action = savingsActions.find(a => a.id === habitId)
     if (action) total += action.savings
   })
@@ -85,7 +85,7 @@ const totalSavings = computed(() => {
 
 const totalEnergyReduction = computed(() => {
   let total = 0
-  selectedHabits.value.forEach(habitId => {
+  selectedHabits.value.forEach((habitId: string) => {
     const action = savingsActions.find(a => a.id === habitId)
     if (action) total += action.energySavings
   })
@@ -112,24 +112,13 @@ const impactMessage = computed(() => {
   return '🎉 Wow! You\'re committed to making a huge impact. These changes will transform your energy footprint!'
 })
 
-const updateTotal = () => {
-  // This is called when a toggle changes
-}
-
-const toggleHabit = (habitId: string) => {
-  if (selectedHabits.value.has(habitId)) {
-    selectedHabits.value.delete(habitId)
-  } else {
+const handleToggle = (habitId: string, isActive: boolean) => {
+  if (isActive) {
     selectedHabits.value.add(habitId)
+  } else {
+    selectedHabits.value.delete(habitId)
   }
-  updateTotal()
 }
-
-// Expose for child components
-defineExpose({
-  toggleHabit,
-  selectedHabits
-})
 </script>
 
 <style scoped>
