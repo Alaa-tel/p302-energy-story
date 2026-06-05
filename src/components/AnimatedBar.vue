@@ -8,9 +8,8 @@
       <div
         class="bar-fill"
         :style="{ 
-          width: '0%',
+          width: value + '%',
           backgroundColor: color,
-          animation: `fillBar 0.8s ease-out 0.2s forwards`
         }"
       />
     </div>
@@ -62,11 +61,12 @@ defineProps<{
 .bar-fill {
   height: 100%;
   border-radius: var(--radius-base);
-  transition: all 0.3s ease;
+  transition: all 0.8s ease-out;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   padding-right: var(--spacing-base);
+  animation: fillBar 0.8s ease-out 0.2s forwards;
 }
 
 .bar-container:hover .bar-fill {
@@ -83,9 +83,6 @@ defineProps<{
 @keyframes fillBar {
   from {
     width: 0%;
-  }
-  to {
-    width: v-bind('value + "%"');
   }
 }
 
