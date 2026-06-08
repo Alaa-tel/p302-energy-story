@@ -3,7 +3,8 @@
     <div class="container">
       <div class="hero-content">
         <h1 class="hero-title">The Hidden Energy Cost of Your Day</h1>
-        <p class="hero-subtitle">Most people focus on the wrong energy-saving habits.</p>
+        <p class="hero-subtitle">You might be saving energy in all the wrong places.</p>
+        <p class="hero-body">This short interactive story shows which household habits actually move the needle — and which ones barely make a dent.</p>
         <button class="btn-primary btn-large" @click="$emit('start')">Start the Story</button>
       </div>
       <div class="hero-illustration">
@@ -100,6 +101,14 @@ defineEmits<{
   color: var(--color-text-light);
   margin-bottom: var(--spacing-2xl);
   line-height: 1.6;
+}
+
+.hero-body {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-2xl);
+  line-height: 1.8;
+  max-width: 500px;
 }
 
 .btn-large {

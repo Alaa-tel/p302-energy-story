@@ -1,9 +1,10 @@
 <template>
   <SectionContainer>
     <div class="energy-breakdown">
+      <div class="chapter-label">Chapter 2</div>
       <div class="breakdown-header">
-        <h2>Where Your Energy Actually Goes</h2>
-        <p class="subtitle">Understanding household energy distribution is key to saving money and reducing impact.</p>
+        <h2>The Reveal</h2>
+        <p class="subtitle">Where your energy actually goes.</p>
       </div>
 
       <div class="breakdown-chart">
@@ -19,15 +20,17 @@
         </div>
       </div>
 
+      <div class="insight-callout">
+        <p class="insight-text">Heating, cooling, and hot water make up over 60% of home energy use.</p>
+      </div>
+
       <div class="breakdown-insight">
-        <h3>The Big Picture</h3>
+        <h3>Why This Matters</h3>
         <p>
-          Heating and cooling your home is the single largest energy expense, accounting for 45% of household energy use. 
-          Water heating comes second at 18%. Together, these two systems account for nearly two-thirds of your energy bill.
+          Understanding where your energy goes is the first step to saving it. Heating and cooling your home is the single largest energy expense, accounting for 45% of household energy use. Water heating comes second at 18%. Together, these two systems account for nearly two-thirds of your energy bill.
         </p>
         <p>
-          <strong>The Good News:</strong> Even small adjustments to your thermostat or showering habits can have significant 
-          impact on your annual energy consumption and costs.
+          <strong>The Good News:</strong> Even small adjustments to your thermostat or showering habits can have significant impact on your annual energy consumption and costs.
         </p>
       </div>
     </div>
@@ -41,6 +44,17 @@ import AnimatedBar from './AnimatedBar.vue'
 </script>
 
 <style scoped>
+.chapter-label {
+  display: inline-block;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-base);
+  animation: fadeIn 0.6s ease-out;
+}
+
 .energy-breakdown {
   max-width: 1100px;
   margin: 0 auto;
@@ -78,6 +92,24 @@ import AnimatedBar from './AnimatedBar.vue'
   gap: var(--spacing-lg);
 }
 
+.insight-callout {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #059669 100%);
+  color: white;
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2xl);
+  margin-bottom: var(--spacing-2xl);
+  text-align: center;
+  animation: slideUp 0.8s ease-out 0.2s both;
+  box-shadow: var(--shadow-lg);
+}
+
+.insight-text {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  margin-bottom: 0;
+  line-height: 1.4;
+}
+
 .breakdown-insight {
   background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(212, 132, 26, 0.05) 100%);
   border-left: 4px solid var(--color-primary);
@@ -107,6 +139,14 @@ import AnimatedBar from './AnimatedBar.vue'
 
   .breakdown-chart {
     padding: var(--spacing-lg);
+  }
+
+  .insight-callout {
+    padding: var(--spacing-lg);
+  }
+
+  .insight-text {
+    font-size: var(--font-size-lg);
   }
 
   .breakdown-insight {

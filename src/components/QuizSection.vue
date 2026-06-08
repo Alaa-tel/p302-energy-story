@@ -1,9 +1,10 @@
 <template>
   <SectionContainer id="quiz">
     <div class="quiz-container">
+      <div class="chapter-label">Chapter 1</div>
       <div class="quiz-header">
-        <h2>Which activity uses the most energy in your home?</h2>
-        <p class="quiz-subtitle">Take a guess and see how you compare to typical households.</p>
+        <h2>The Guess</h2>
+        <p class="quiz-subtitle">Which activity uses the most energy in your home?</p>
       </div>
 
       <div class="quiz-options">
@@ -26,7 +27,8 @@
             <div class="feedback-icon">
               {{ selectedOption === 'hvac' ? '🎯' : '💡' }}
             </div>
-            <p>{{ currentFeedback }}</p>
+            <p class="feedback-text">{{ comparisonText }}</p>
+            <p class="feedback-detail">{{ currentFeedback }}</p>
           </div>
           <button class="btn-secondary" @click="resetQuiz">Try Again</button>
         </div>
@@ -36,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { quizOptions } from '@/data/energyData'
 import SectionContainer from './SectionContainer.vue'
 
@@ -44,6 +46,28 @@ const selectedOption = ref<string | null>(null)
 const isAnswered = ref(false)
 
 const currentFeedback = ref('')
+
+const comparisonText = computed(() => {
+  if (selectedOption.value === 'hvac') {
+    return 'You nailed it! Heating and cooling is the biggest energy consumer in most homes, using about 45% of total household energy.'
+  }
+  
+  const selectedLabel = quizOptions.find(o => o.id === selectedOption.value)?.label
+  
+  if (selectedOption.value === 'lighting') {
+    return `You selected ${selectedLabel}. Lighting matters, but it represents about 5% of home energy use. Heating and cooling can be nearly 9x larger.`
+  } else if (selectedOption.value === 'charging') {
+    return `You selected ${selectedLabel}. Phone charging is incredibly efficient. Heating and cooling uses about 90x more energy.`
+  } else if (selectedOption.value === 'laundry') {
+    return `You selected ${selectedLabel}. Laundry accounts for about 8% of home energy. Heating and cooling is more than 5x larger.`
+  } else if (selectedOption.value === 'showers') {
+    return `You selected ${selectedLabel}. Hot water is significant at 18%, but heating and cooling your entire home uses about 2.5x more.`
+  } else if (selectedOption.value === 'electronics') {
+    return `You selected ${selectedLabel}. Modern entertainment devices use about 4% of home energy. Heating and cooling uses more than 11x more.`
+  }
+  
+  return 'Great guess!'
+})
 
 const selectOption = (optionId: string) => {
   if (isAnswered.value) return
@@ -62,6 +86,17 @@ const resetQuiz = () => {
 </script>
 
 <style scoped>
+.chapter-label {
+  display: inline-block;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-base);
+  animation: fadeIn 0.6s ease-out;
+}
+
 .quiz-container {
   max-width: 900px;
   margin: 0 auto;
@@ -74,8 +109,8 @@ const resetQuiz = () => {
 }
 
 .quiz-header h2 {
-  font-size: var(--font-size-3xl);
-  margin-bottom: var(--spacing-base);
+  font-size: var(--font-size-4xl);
+  margin-bottom: var(--spacing-lg);
 }
 
 .quiz-subtitle {
@@ -153,10 +188,19 @@ const resetQuiz = () => {
   margin-bottom: var(--spacing-base);
 }
 
-.feedback p {
+.feedback-text {
   font-size: var(--font-size-lg);
   line-height: 1.8;
+  margin-bottom: var(--spacing-base);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.feedback-detail {
+  font-size: var(--font-size-base);
+  line-height: 1.6;
   margin-bottom: 0;
+  color: var(--color-text-light);
 }
 
 @media (max-width: 768px) {
@@ -176,6 +220,10 @@ const resetQuiz = () => {
 
   .feedback-container {
     padding: var(--spacing-lg);
+  }
+
+  .feedback-text {
+    font-size: var(--font-size-base);
   }
 }
 </style>

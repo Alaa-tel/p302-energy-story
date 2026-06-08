@@ -1,9 +1,10 @@
 <template>
   <SectionContainer>
     <div class="impact-summary">
+      <div class="chapter-label">Chapter 4</div>
       <div class="summary-header">
-        <h2>Your Personal Energy Plan</h2>
-        <p class="subtitle">Let's look at the real-world impact of your choices.</p>
+        <h2>Your Plan</h2>
+        <p class="subtitle">Let's put your choices into perspective.</p>
       </div>
 
       <div class="summary-content">
@@ -52,6 +53,11 @@
               <p><strong>2,600 gallons</strong> of water saved</p>
             </div>
           </div>
+        </div>
+
+        <div class="key-insight">
+          <p class="insight-headline">You don't need to change everything. Start with the habits that move the needle.</p>
+          <p class="insight-body">Focus on the big three: thermostat, showers, and laundry. Small, consistent changes in these areas compound into extraordinary results over time.</p>
         </div>
 
         <div class="final-message">
@@ -106,6 +112,16 @@ const scrollToTop = () => {
 </script>
 
 <style scoped>
+.chapter-label {
+  display: inline-block;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-base);
+  animation: fadeIn 0.6s ease-out;
+}
 .impact-summary {
   max-width: 1000px;
   margin: 0 auto;
@@ -127,11 +143,16 @@ const scrollToTop = () => {
   color: var(--color-text-light);
 }
 
+.summary-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xl);
+}
+
 .summary-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-3xl);
 }
 
 .stat-card {
@@ -143,6 +164,12 @@ const scrollToTop = () => {
   align-items: flex-start;
   gap: var(--spacing-lg);
   animation: scaleIn 0.5s ease-out;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
 }
 
 .stat-icon {
@@ -177,7 +204,6 @@ const scrollToTop = () => {
   background: var(--color-card);
   border-radius: var(--radius-xl);
   padding: var(--spacing-2xl);
-  margin-bottom: var(--spacing-3xl);
   box-shadow: var(--shadow-md);
 }
 
@@ -198,6 +224,12 @@ const scrollToTop = () => {
   padding: var(--spacing-lg);
   text-align: center;
   animation: slideUp 0.6s ease-out;
+  transition: all 0.3s ease;
+}
+
+.comparison-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-base);
 }
 
 .comparison-icon {
@@ -212,12 +244,34 @@ const scrollToTop = () => {
   line-height: 1.6;
 }
 
+.key-insight {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(212, 132, 26, 0.1) 100%);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-xl);
+  padding: var(--spacing-2xl);
+  text-align: center;
+  animation: slideUp 0.8s ease-out 0.2s both;
+}
+
+.insight-headline {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-base);
+}
+
+.insight-body {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  line-height: 1.8;
+  margin-bottom: 0;
+}
+
 .final-message {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(212, 132, 26, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(212, 132, 26, 0.05) 100%);
   border-left: 4px solid var(--color-primary);
   border-radius: var(--radius-lg);
   padding: var(--spacing-2xl);
-  margin-bottom: var(--spacing-2xl);
 }
 
 .final-message h3 {
@@ -248,6 +302,7 @@ const scrollToTop = () => {
   font-weight: 700;
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
+  transition: all 0.3s ease;
 }
 
 .btn-large:hover {
@@ -289,6 +344,10 @@ const scrollToTop = () => {
   .btn-large {
     padding: var(--spacing-base) var(--spacing-xl);
     font-size: var(--font-size-base);
+  }
+
+  .insight-headline {
+    font-size: var(--font-size-lg);
   }
 }
 </style>

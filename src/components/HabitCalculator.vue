@@ -1,19 +1,43 @@
 <template>
   <SectionContainer>
     <div class="habit-calculator">
+      <div class="chapter-label">Chapter 3</div>
       <div class="calculator-header">
-        <h2>Build Your Savings Plan</h2>
-        <p class="subtitle">Toggle the habits you're willing to adopt and see your potential annual savings.</p>
+        <h2>The Tradeoff</h2>
+        <p class="subtitle">Which habits actually move the needle? Let's compare.</p>
       </div>
 
       <div class="calculator-content">
         <div class="habits-grid">
-          <ToggleCard
-            v-for="action in savingsActions"
-            :key="action.id"
-            :action="action"
-            @toggle="handleToggle"
-          />
+          <div class="impact-group">
+            <h3 class="impact-group-title">🎯 High Impact</h3>
+            <ToggleCard
+              v-for="action in highImpactHabits"
+              :key="action.id"
+              :action="action"
+              @toggle="handleToggle"
+            />
+          </div>
+
+          <div class="impact-group">
+            <h3 class="impact-group-title">⭐ Medium Impact</h3>
+            <ToggleCard
+              v-for="action in mediumImpactHabits"
+              :key="action.id"
+              :action="action"
+              @toggle="handleToggle"
+            />
+          </div>
+
+          <div class="impact-group">
+            <h3 class="impact-group-title">💭 Low Impact</h3>
+            <ToggleCard
+              v-for="action in lowImpactHabits"
+              :key="action.id"
+              :action="action"
+              @toggle="handleToggle"
+            />
+          </div>
         </div>
 
         <div class="calculator-summary">
@@ -74,6 +98,18 @@ import ToggleCard from './ToggleCard.vue'
 
 const selectedHabits = ref<Set<string>>(new Set())
 
+const highImpactHabits = computed(() => 
+  savingsActions.filter(a => a.savings >= 70)
+)
+
+const mediumImpactHabits = computed(() => 
+  savingsActions.filter(a => a.savings >= 40 && a.savings < 70)
+)
+
+const lowImpactHabits = computed(() => 
+  savingsActions.filter(a => a.savings < 40)
+)
+
 const totalSavings = computed(() => {
   let total = 0
   selectedHabits.value.forEach((habitId: string) => {
@@ -105,11 +141,11 @@ const effortLevel = computed(() => {
 })
 
 const impactMessage = computed(() => {
-  if (selectedHabits.value.size === 0) return 'Select habits above to see your potential impact.'
-  if (totalSavings.value < 50) return 'Small steps lead to meaningful change. Every action counts!'
-  if (totalSavings.value < 200) return 'You\'re on a good track! These changes will add up over time.'
-  if (totalSavings.value < 400) return 'Excellent choices! You\'re making a real difference for your wallet and the planet.'
-  return '🎉 Wow! You\'re committed to making a huge impact. These changes will transform your energy footprint!'
+  if (selectedHabits.value.size === 0) return 'Select habits to see your potential impact.'
+  if (totalSavings.value < 50) return 'Every small step counts. Start with one habit this month.'
+  if (totalSavings.value < 150) return 'Good start! These changes will make a real difference.'
+  if (totalSavings.value < 300) return 'Excellent choices! You\'re targeting the habits that matter most.'
+  return '🎉 You\'re maximizing your impact. These changes will transform your energy footprint!'
 })
 
 const handleToggle = (habitId: string, isActive: boolean) => {
@@ -122,6 +158,17 @@ const handleToggle = (habitId: string, isActive: boolean) => {
 </script>
 
 <style scoped>
+.chapter-label {
+  display: inline-block;
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-base);
+  animation: fadeIn 0.6s ease-out;
+}
+
 .habit-calculator {
   max-width: 1200px;
   margin: 0 auto;
@@ -154,7 +201,20 @@ const handleToggle = (habitId: string, isActive: boolean) => {
 .habits-grid {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-lg);
+  gap: var(--spacing-2xl);
+}
+
+.impact-group {
+  animation: slideUp 0.8s ease-out;
+}
+
+.impact-group-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-base);
+  border-bottom: 2px solid var(--color-border);
 }
 
 .calculator-summary {
@@ -184,6 +244,12 @@ const handleToggle = (habitId: string, isActive: boolean) => {
   padding: var(--spacing-lg);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.metric:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .metric-icon {
@@ -204,6 +270,7 @@ const handleToggle = (habitId: string, isActive: boolean) => {
   font-size: var(--font-size-2xl);
   font-weight: 700;
   color: var(--color-text);
+  transition: all 0.3s ease;
 }
 
 .effort-indicator {
