@@ -2,6 +2,8 @@
   <div id="app" class="app">
     <HeroSection @start="scrollToSection('quiz')" />
     <QuizSection ref="quizSection" />
+    <MythVsReality />
+    <DayInTheLife />
     <EnergyBreakdown />
     <HabitCalculator />
     <ImpactSummary />
@@ -9,14 +11,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
 import HeroSection from './components/HeroSection.vue'
 import QuizSection from './components/QuizSection.vue'
+import MythVsReality from './components/MythVsReality.vue'
+import DayInTheLife from './components/DayInTheLife.vue'
 import EnergyBreakdown from './components/EnergyBreakdown.vue'
 import HabitCalculator from './components/HabitCalculator.vue'
 import ImpactSummary from './components/ImpactSummary.vue'
-
-const quizSection = ref<InstanceType<typeof QuizSection>>()
 
 const scrollToSection = (sectionId: string) => {
   const element = document.getElementById(sectionId)
